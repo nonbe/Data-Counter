@@ -1,332 +1,623 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+
+<html lang="ja">
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Hiragino Sans'}
-    span.s1 {font: 12.0px 'Hiragino Sans'}
-    span.s2 {font: 12.0px 'Apple Color Emoji'}
-    span.s3 {font: 12.0px Helvetica}
-  </style>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>日付カウンター</title>
+
+    <style>
+
+        body {
+
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+            max-width: 600px;
+
+            margin: 0 auto;
+
+            padding: 20px;
+
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+            min-height: 100vh;
+
+        }
+
+
+
+        .container {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 30px;
+
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+        }
+
+
+
+        h1 {
+
+            text-align: center;
+
+            color: #333;
+
+            margin-bottom: 30px;
+
+            font-size: 2.2em;
+
+        }
+
+
+
+        .form-group {
+
+            margin-bottom: 20px;
+
+        }
+
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #555;
+
+            font-weight: bold;
+
+        }
+
+
+
+        input[type="text"], input[type="date"], select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: 2px solid #ddd;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            box-sizing: border-box;
+
+            transition: border-color 0.3s;
+
+        }
+
+
+
+        input[type="text"]:focus, input[type="date"]:focus, select:focus {
+
+            outline: none;
+
+            border-color: #667eea;
+
+        }
+
+
+
+        button {
+
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 24px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            transition: transform 0.2s;
+
+        }
+
+
+
+        button:hover {
+
+            transform: translateY(-2px);
+
+        }
+
+
+
+        .counter-list {
+
+            margin-top: 30px;
+
+        }
+
+
+
+        .counter-item {
+
+            background: #f8f9fa;
+
+            border: 2px solid #e9ecef;
+
+            border-radius: 10px;
+
+            padding: 20px;
+
+            margin-bottom: 15px;
+
+            position: relative;
+
+        }
+
+
+
+        .counter-name {
+
+            font-size: 1.3em;
+
+            font-weight: bold;
+
+            color: #333;
+
+            margin-bottom: 10px;
+
+        }
+
+
+
+        .counter-value {
+
+            font-size: 2em;
+
+            font-weight: bold;
+
+            text-align: center;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            margin: 10px 0;
+
+        }
+
+
+
+        .countup {
+
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+
+            color: white;
+
+        }
+
+
+
+        .countdown {
+
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+
+            color: white;
+
+        }
+
+
+
+        .completed {
+
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+            color: white;
+
+        }
+
+
+
+        .counter-info {
+
+            text-align: center;
+
+            color: #666;
+
+            font-size: 0.9em;
+
+            margin-top: 8px;
+
+        }
+
+
+
+        .delete-btn {
+
+            position: absolute;
+
+            top: 10px;
+
+            right: 10px;
+
+            background: #ff6b6b;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 50%;
+
+            width: 30px;
+
+            height: 30px;
+
+            cursor: pointer;
+
+            font-size: 16px;
+
+        }
+
+
+
+        .no-counters {
+
+            text-align: center;
+
+            color: #888;
+
+            font-style: italic;
+
+            margin-top: 30px;
+
+        }
+
+
+
+        .add-counter-form {
+
+            border: 2px dashed #ddd;
+
+            border-radius: 10px;
+
+            padding: 20px;
+
+            margin-bottom: 20px;
+
+        }
+
+    </style>
+
 </head>
+
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="ja"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;<span class="s1">日付カウンター</span>&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: 600px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>min-height: 100vh;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.container {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 30px rgba(0,0,0,0.2);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>h1 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 2.2em;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.form-group {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>label {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #555;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>input[type="text"], input[type="date"], select {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid #ddd;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: border-color 0.3s;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>input[type="text"]:focus, input[type="date"]:focus, select:focus {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>outline: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-color: #667eea;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>button {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 12px 24px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: transform 0.2s;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>button:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-2px);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.counter-list {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.counter-item {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #f8f9fa;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid #e9ecef;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.counter-name {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.3em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.counter-value {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 2em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 10px 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.countup {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.countdown {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.completed {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.counter-info {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #666;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.9em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.delete-btn {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>right: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #ff6b6b;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.no-counters {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #888;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-style: italic;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.add-counter-form {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 2px dashed #ddd;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1&gt;<span class="s2">📅</span> <span class="s1">日付カウンター</span>&lt;/h1&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="add-counter-form"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;label for="counterName"&gt;<span class="s1">カウンター名</span>:&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="text" id="counterName" placeholder="<span class="s1">例</span>: <span class="s1">禁煙生活、試験まで、筋トレ開始から</span>"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;label for="counterDate"&gt;<span class="s1">日付</span>:&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="date" id="counterDate"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;label for="counterType"&gt;<span class="s1">種類</span>:&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;select id="counterType"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;option value="countup"&gt;<span class="s1">カウントアップ（○○日経過）</span>&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;option value="countdown"&gt;<span class="s1">カウントダウン（あと○○日）</span>&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="addCounter()"&gt;<span class="s2">➕</span> <span class="s1">カウンター追加</span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="counter-list" id="counterList"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="no-counters"&gt;<span class="s1">まだカウンターがありません</span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p3"><span class="s3"><span class="Apple-converted-space">        </span>// </span>ページ読み込み時にカウンターを表示</p>
-<p class="p1"><span class="Apple-converted-space">        </span>window.onload = function() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>displayCounters();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// <span class="s1">今日の日付をデフォルトに設定</span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('counterDate').value = new Date().toISOString().split('T')[0];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// <span class="s1">カウンター追加</span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function addCounter() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const name = document.getElementById('counterName').value.trim();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const date = document.getElementById('counterDate').value;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const type = document.getElementById('counterType').value;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!name || !date) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>alert('<span class="s1">カウンター名と日付を入力してください</span>');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const counter = {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>id: Date.now(), // <span class="s1">ユニーク</span>ID</p>
-<p class="p1"><span class="Apple-converted-space">                </span>name: name,</p>
-<p class="p1"><span class="Apple-converted-space">                </span>date: date,</p>
-<p class="p1"><span class="Apple-converted-space">                </span>type: type,</p>
-<p class="p1"><span class="Apple-converted-space">                </span>created: new Date().toISOString()</p>
-<p class="p1"><span class="Apple-converted-space">            </span>};</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// <span class="s1">既存のカウンターを取得</span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const counters = getCounters();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>counters.push(counter);</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// localStorage<span class="s1">に保存</span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>localStorage.setItem('dateCounters', JSON.stringify(counters));</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// <span class="s1">フォームをリセット</span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('counterName').value = '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('counterDate').value = new Date().toISOString().split('T')[0];</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// <span class="s1">表示を更新</span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>displayCounters();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// <span class="s1">カウンター削除</span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function deleteCounter(id) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (confirm('<span class="s1">このカウンターを削除しますか？</span>')) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const counters = getCounters();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const filtered = counters.filter(counter =&gt; counter.id !== id);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>localStorage.setItem('dateCounters', JSON.stringify(filtered));</p>
-<p class="p1"><span class="Apple-converted-space">                </span>displayCounters();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// localStorage<span class="s1">からカウンターを取得</span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function getCounters() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const saved = localStorage.getItem('dateCounters');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>return saved ? JSON.parse(saved) : [];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// <span class="s1">日数計算</span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function calculateDays(targetDate, type) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const today = new Date();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const target = new Date(targetDate);</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// <span class="s1">時間を</span>0<span class="s1">にして日付のみで比較</span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>today.setHours(0, 0, 0, 0);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>target.setHours(0, 0, 0, 0);</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const diffTime = today - target;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (type === 'countup') {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>return diffDays;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>return -diffDays;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// <span class="s1">カウンター表示</span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function displayCounters() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const counters = getCounters();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const listElement = document.getElementById('counterList');</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (counters.length === 0) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>listElement.innerHTML = '&lt;div class="no-counters"&gt;<span class="s1">まだカウンターがありません</span>&lt;/div&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>let html = '';</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>counters.forEach(counter =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const days = calculateDays(counter.date, counter.type);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>let displayText, className, statusText;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (counter.type === 'countup') {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>displayText = `${days}<span class="s1">日経過</span>`;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>className = 'countup';</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>statusText = `<span class="s1">開始日</span>: ${counter.date}`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (days &gt; 0) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>displayText = `<span class="s1">あと</span>${days}<span class="s1">日</span>`;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>className = 'countdown';</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>} else if (days === 0) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>displayText = '<span class="s1">今日！</span>';</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>className = 'completed';</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>displayText = `${Math.abs(days)}<span class="s1">日経過</span>`;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>className = 'completed';</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>statusText = `<span class="s1">目標日</span>: ${counter.date}`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>html += `</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="counter-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button class="delete-btn" onclick="deleteCounter(${counter.id})"&gt;×&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="counter-name"&gt;${counter.name}&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="counter-value ${className}"&gt;${displayText}&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="counter-info"&gt;${statusText}&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>listElement.innerHTML = html;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p3"><span class="s3"><span class="Apple-converted-space">        </span>// 1</span>分ごとに表示を更新（日付が変わった時のため）</p>
-<p class="p1"><span class="Apple-converted-space">        </span>setInterval(displayCounters, 60000);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+    <div class="container">
+
+        <h1>📅 日付カウンター</h1>
+
+        
+
+        <div class="add-counter-form">
+
+            <div class="form-group">
+
+                <label for="counterName">カウンター名:</label>
+
+                <input type="text" id="counterName" placeholder="例: 禁煙生活、試験まで、筋トレ開始から">
+
+            </div>
+
+            
+
+            <div class="form-group">
+
+                <label for="counterDate">日付:</label>
+
+                <input type="date" id="counterDate">
+
+            </div>
+
+            
+
+            <div class="form-group">
+
+                <label for="counterType">種類:</label>
+
+                <select id="counterType">
+
+                    <option value="countup">カウントアップ（○○日経過）</option>
+
+                    <option value="countdown">カウントダウン（あと○○日）</option>
+
+                </select>
+
+            </div>
+
+            
+
+            <button onclick="addCounter()">➕ カウンター追加</button>
+
+        </div>
+
+        
+
+        <div class="counter-list" id="counterList">
+
+            <div class="no-counters">まだカウンターがありません</div>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+
+        // ページ読み込み時にカウンターを表示
+
+        window.onload = function() {
+
+            displayCounters();
+
+            // 今日の日付をデフォルトに設定
+
+            document.getElementById('counterDate').value = new Date().toISOString().split('T')[0];
+
+        };
+
+
+
+        // カウンター追加
+
+        function addCounter() {
+
+            const name = document.getElementById('counterName').value.trim();
+
+            const date = document.getElementById('counterDate').value;
+
+            const type = document.getElementById('counterType').value;
+
+            
+
+            if (!name || !date) {
+
+                alert('カウンター名と日付を入力してください');
+
+                return;
+
+            }
+
+            
+
+            const counter = {
+
+                id: Date.now(), // ユニークID
+
+                name: name,
+
+                date: date,
+
+                type: type,
+
+                created: new Date().toISOString()
+
+            };
+
+            
+
+            // 既存のカウンターを取得
+
+            const counters = getCounters();
+
+            counters.push(counter);
+
+            
+
+            // localStorageに保存
+
+            localStorage.setItem('dateCounters', JSON.stringify(counters));
+
+            
+
+            // フォームをリセット
+
+            document.getElementById('counterName').value = '';
+
+            document.getElementById('counterDate').value = new Date().toISOString().split('T')[0];
+
+            
+
+            // 表示を更新
+
+            displayCounters();
+
+        }
+
+
+
+        // カウンター削除
+
+        function deleteCounter(id) {
+
+            if (confirm('このカウンターを削除しますか？')) {
+
+                const counters = getCounters();
+
+                const filtered = counters.filter(counter => counter.id !== id);
+
+                localStorage.setItem('dateCounters', JSON.stringify(filtered));
+
+                displayCounters();
+
+            }
+
+        }
+
+
+
+        // localStorageからカウンターを取得
+
+        function getCounters() {
+
+            const saved = localStorage.getItem('dateCounters');
+
+            return saved ? JSON.parse(saved) : [];
+
+        }
+
+
+
+        // 日数計算
+
+        function calculateDays(targetDate, type) {
+
+            const today = new Date();
+
+            const target = new Date(targetDate);
+
+            
+
+            // 時間を0にして日付のみで比較
+
+            today.setHours(0, 0, 0, 0);
+
+            target.setHours(0, 0, 0, 0);
+
+            
+
+            const diffTime = today - target;
+
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+            
+
+            if (type === 'countup') {
+
+                return diffDays;
+
+            } else {
+
+                return -diffDays;
+
+            }
+
+        }
+
+
+
+        // カウンター表示
+
+        function displayCounters() {
+
+            const counters = getCounters();
+
+            const listElement = document.getElementById('counterList');
+
+            
+
+            if (counters.length === 0) {
+
+                listElement.innerHTML = '<div class="no-counters">まだカウンターがありません</div>';
+
+                return;
+
+            }
+
+            
+
+            let html = '';
+
+            
+
+            counters.forEach(counter => {
+
+                const days = calculateDays(counter.date, counter.type);
+
+                let displayText, className, statusText;
+
+                
+
+                if (counter.type === 'countup') {
+
+                    displayText = `${days}日経過`;
+
+                    className = 'countup';
+
+                    statusText = `開始日: ${counter.date}`;
+
+                } else {
+
+                    if (days > 0) {
+
+                        displayText = `あと${days}日`;
+
+                        className = 'countdown';
+
+                    } else if (days === 0) {
+
+                        displayText = '今日！';
+
+                        className = 'completed';
+
+                    } else {
+
+                        displayText = `${Math.abs(days)}日経過`;
+
+                        className = 'completed';
+
+                    }
+
+                    statusText = `目標日: ${counter.date}`;
+
+                }
+
+                
+
+                html += `
+
+                    <div class="counter-item">
+
+                        <button class="delete-btn" onclick="deleteCounter(${counter.id})">×</button>
+
+                        <div class="counter-name">${counter.name}</div>
+
+                        <div class="counter-value ${className}">${displayText}</div>
+
+                        <div class="counter-info">${statusText}</div>
+
+                    </div>
+
+                `;
+
+            });
+
+            
+
+            listElement.innerHTML = html;
+
+        }
+
+
+
+        // 1分ごとに表示を更新（日付が変わった時のため）
+
+        setInterval(displayCounters, 60000);
+
+    </script>
+
 </body>
+
 </html>
